@@ -1,3 +1,7 @@
+$duration_in_seconds = 2
+$autosave_message = "autosave"
+$target_branch = "deployed"
+
 If (-Not (Get-Command git -errorAction SilentlyContinue)) {
   Write-Output "Error: git is not installed"
   Exit 1
@@ -13,9 +17,6 @@ if (-Not (Test-Path $target_dir)) {
   Write-Output "Error: Invalid directory '$target_dir'"
   Exit 1
 }
-
-$duration_in_seconds = 2
-$autosave_message = "autosave"
 
 function getCurrentDate() {
   $currentDate = Get-Date
@@ -61,7 +62,7 @@ try {
       $current_branch = git rev-parse --abbrev-ref HEAD
       git add -AN
       git commit -am $autosave_message --quiet 2>$null
-      git push origin main --quiet 2>$null
+      git push origin ${current_branch}:${target_branch} --quiet 2>$null
       git log --format="%C(auto)[$current_branch %h] %s" -n 1 --stat
       Write-Output ""
     }
