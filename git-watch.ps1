@@ -1,6 +1,6 @@
 $duration_in_seconds = 2
 $autosave_message = "autosave"
-$branch = "deployed"
+$target_branch = "deployed"
 
 If (-Not (Get-Command git -errorAction SilentlyContinue)) {
   Write-Output "Error: git is not installed"
