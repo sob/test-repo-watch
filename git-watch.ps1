@@ -60,9 +60,10 @@ try {
 
     if (-Not [String]::IsNullOrEmpty($files_changed)) {
       $current_branch = git rev-parse --abbrev-ref HEAD
-      $current_date = getCurrentDate
+
+      $autosave_message = $autosave_message -replace "%d" getCurrentDate
       git add -AN
-      git commit -am $autosave_message --quiet 2>$null
+      git commit -am ${autosave_message} --quiet 2>$null
       git push origin ${current_branch}:${target_branch} --quiet 2>$null
       git log --format="%C(auto)[$current_branch %h] %s" -n 1 --stat
       Write-Output ""
