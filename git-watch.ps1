@@ -1,5 +1,5 @@
 $duration_in_seconds = 2
-$autosave_message = "autosave"
+$autosave_message = "Scripted auto-commit on change (%d) by git-watch.ps1"
 $target_branch = "deployed"
 
 If (-Not (Get-Command git -errorAction SilentlyContinue)) {
@@ -60,6 +60,7 @@ try {
 
     if (-Not [String]::IsNullOrEmpty($files_changed)) {
       $current_branch = git rev-parse --abbrev-ref HEAD
+      $current_date = getCurrentDate
       git add -AN
       git commit -am $autosave_message --quiet 2>$null
       git push origin ${current_branch}:${target_branch} --quiet 2>$null
