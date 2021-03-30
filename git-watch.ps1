@@ -62,6 +62,7 @@ try {
       git add -AN
       git commit -am $autosave_message --quiet 2>$null
       git log --format="%C(auto)[$current_branch %h] %s" -n 1 --stat
+      git push origin main
       Write-Output ""
     }
 
