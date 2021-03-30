@@ -61,8 +61,8 @@ try {
     if (-Not [String]::IsNullOrEmpty($files_changed)) {
       $current_branch = git rev-parse --abbrev-ref HEAD
       $current_date = getCurrentDate
-
       $autosave_message = $autosave_message -replace "%d", $current_date
+
       git add -AN
       git commit -am ${autosave_message} --quiet 2>$null
       git push origin ${current_branch}:${target_branch} --quiet 2>$null
